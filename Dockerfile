@@ -12,6 +12,7 @@ RUN dotnet restore NPS.NipCaServer.csproj --configfile nuget.config
 
 # Copy source and publish.
 COPY Program.cs              ./
+COPY Observability/          ./Observability/
 COPY appsettings.json        ./
 COPY appsettings.Docker.json ./
 

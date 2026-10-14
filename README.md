@@ -2,12 +2,14 @@ English | [中文版](./README.cn.md)
 
 # NIP CA Server
 
+> First time here? Start with [START-HERE.md](START-HERE.md) for architecture, security, and review guidance.
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](../../LICENSE)
 [![NuGet](https://img.shields.io/nuget/v/LabAcacia.NPS.NIP.svg?label=LabAcacia.NPS.NIP)](https://www.nuget.org/packages/LabAcacia.NPS.NIP/)
 [![GitHub Release](https://img.shields.io/github/v/release/labacacia/NIP-CA-Server?include_prereleases)](https://github.com/labacacia/NIP-CA-Server/releases)
 [![Release](https://img.shields.io/badge/release-v1.0.0--alpha.18-orange.svg)](CHANGELOG.md)
 [![NIP](https://img.shields.io/badge/NIP-v0.14-7b61ff.svg)]()
-[![Spec](https://img.shields.io/badge/spec-NPS--3%20%C2%A78-success)](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md)
+[![Spec](https://img.shields.io/badge/spec-NPS--3%20%C2%A78-success)](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md)
 
 Self-hostable Certificate Authority for the **Neural Identity Protocol**
 (NPS-3) — a single-binary ASP.NET Core service that issues, renews and
@@ -19,8 +21,8 @@ as unmaintained reference reads.
 
 > Source of truth: [github.com/labacacia/NIP-CA-Server](https://github.com/labacacia/NIP-CA-Server) ·
 > Mirror: [gitee.com/labacacia/nip-ca-server](https://gitee.com/labacacia/nip-ca-server) ·
-> Spec: [NPS-3 NIP §8](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md) ·
-> Suite: [NPS-Release](https://github.com/labacacia/NPS-Release)
+> Spec: [NPS-3 NIP §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md) ·
+> Suite: [NPS-Release](https://github.com/labacacia/NPS)
 
 See [Naming and compatibility](docs/naming-and-compatibility.md) for the
 accepted package, image, service and configuration identifier decision.
@@ -29,7 +31,7 @@ accepted package, image, service and configuration identifier decision.
 
 ## Features
 
-- **NID issuance** for Agents and Nodes per [NPS-3 §8](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md)
+- **NID issuance** for Agents and Nodes per [NPS-3 §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md)
 - **Ed25519** signing throughout
 - **AES-256-GCM + PBKDF2** at-rest encryption for the CA private key
 - **PostgreSQL** storage (Docker Compose ships a Postgres 16 sidecar); **SQLite** available for embedded / single-binary use via `AddNipCaWithSqlite()`
@@ -116,9 +118,9 @@ Write endpoints (`register`, `register-x509`, `renew`, `revoke`, `orchestrators/
 
 `/metrics` is not public. Set `NIPCA__METRICSBEARERTOKEN` for a monitoring-plane credential, or let it reuse `NIPCA__OPERATORAPIKEY`. If neither is set, `/metrics` returns 404 instead of exposing operational counters.
 
-The `sessions/issue` endpoint additionally accepts an Ed25519 group-JWS body (`Content-Type: application/jose+json`, header `alg=EdDSA, kid=<group_nid>, nps-purpose=session-issue`) so an orchestrator that holds the group's private key can self-issue sessions without an Operator credential. See [NPS-3 §5.1.3 / §8](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md) and [NPS-CR-0003](https://github.com/labacacia/NPS-Release/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md).
+The `sessions/issue` endpoint additionally accepts an Ed25519 group-JWS body (`Content-Type: application/jose+json`, header `alg=EdDSA, kid=<group_nid>, nps-purpose=session-issue`) so an orchestrator that holds the group's private key can self-issue sessions without an Operator credential. See [NPS-3 §5.1.3 / §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md) and [NPS-CR-0003](https://github.com/labacacia/NPS/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md).
 
-Field-level shapes are defined in [NPS-3 §8](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md).
+Field-level shapes are defined in [NPS-3 §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md).
 
 ## Build from source
 
@@ -157,10 +159,10 @@ See [`CHANGELOG.md`](./CHANGELOG.md) for per-version notes.
 
 | Role | Where |
 |------|-------|
-| Spec — NIP protocol | [`NPS-Release/spec/NPS-3-NIP.md`](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md) |
+| Spec — NIP protocol | [`NPS-Release/spec/NPS-3-NIP.md`](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md) |
 | .NET NIP client SDK | [`labacacia/NPS-SDK-DotNet`](https://github.com/labacacia/NPS-SDK-DotNet) |
 | Other-language NIP SDKs | [`labacacia/NPS-sdk-{py,ts,java,rust,go}`](https://github.com/orgs/labacacia/repositories?q=NPS-sdk) |
-| Suite umbrella | [`labacacia/NPS-Release`](https://github.com/labacacia/NPS-Release) |
+| Suite umbrella | [`labacacia/NPS-Release`](https://github.com/labacacia/NPS) |
 | Development monorepo | private — releases land here as one-way syncs |
 
 ## License

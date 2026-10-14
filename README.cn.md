@@ -116,7 +116,7 @@ curl http://localhost:17435/health
 protected header 为 `alg=EdDSA, kid=<group_nid>, nps-purpose=session-issue`），让持有
 group 私钥的 orchestrator 不依赖 Operator 凭据即可自签发 session。详见
 [NPS-3 §5.1.3 / §8](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md)
-与 [NPS-CR-0003](https://github.com/labacacia/NPS-Release/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md)。
+与 [NPS-CR-0003](https://github.com/labacacia/NPS/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md)。
 
 字段级 schema 见 [NPS-3 §8](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md)。
 
