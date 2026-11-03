@@ -31,14 +31,29 @@ public class DbService {
 
     private Connection connect() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-        conn.createStatement().execute("PRAGMA journal_mode=WAL");
-        conn.createStatement().execute("PRAGMA foreign_keys=ON");
-        return conn;
+        try {
+            try (Statement setup = conn.createStatement()) {
+                // journal_mode returns a result set; close it before another PRAGMA can commit.
+                try (ResultSet mode = setup.executeQuery("PRAGMA journal_mode=WAL")) {
+                    if (!mode.next() || !"wal".equalsIgnoreCase(mode.getString(1)))
+                        throw new SQLException("SQLite WAL mode unavailable.");
+                }
+                setup.execute("PRAGMA foreign_keys=ON");
+            }
+            return conn;
+        } catch (SQLException error) {
+            try { conn.close(); } catch (SQLException closeError) { error.addSuppressed(closeError); }
+            throw error;
+        }
     }
 
     private void init() throws Exception {
-        Path schema = Paths.get(DbService.class.getResource("/db/001_init.sql").toURI());
-        String sql = Files.readString(schema);
+        String sql;
+        // A packaged Boot jar resource is not a filesystem Path.
+        try (var schema = DbService.class.getResourceAsStream("/db/001_init.sql")) {
+            if (schema == null) throw new IOException("Embedded CA schema is unavailable.");
+            sql = new String(schema.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        }
         try (Connection conn = connect(); Statement st = conn.createStatement()) {
             for (String stmt : sql.split(";")) {
                 if (!stmt.isBlank()) st.execute(stmt.trim());

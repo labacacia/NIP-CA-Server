@@ -1,29 +1,29 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.5.16'
+    id 'org.springframework.boot' version '4.0.9'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group   = 'com.labacacia'
 version = '1.0.0-alpha.11'
 
-ext['jackson-bom.version'] = '2.21.6'
 ext['log4j2.version'] = '2.25.5'
-ext['tomcat.version'] = '10.1.59'
 
 java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
 
 repositories { mavenCentral() }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    // Preserve the SDK-compatible signing/storage representation; web MVC uses Jackson 3.
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.11'
     implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
     implementation 'org.slf4j:slf4j-api'
 
     // NPS Java SDK (NPS-RFC-0002 X.509 + ACME primitives) via composite build.
     implementation 'com.labacacia.nps:nps-java:1.0.0-alpha.11'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
 
 tasks.withType(JavaCompile).configureEach {

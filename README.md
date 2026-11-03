@@ -2,8 +2,6 @@ English | [中文版](./README.cn.md)
 
 # NIP CA Server
 
-> First time here? Start with [START-HERE.md](START-HERE.md) for architecture, security, and review guidance.
-
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](../../LICENSE)
 [![NuGet](https://img.shields.io/nuget/v/LabAcacia.NPS.NIP.svg?label=LabAcacia.NPS.NIP)](https://www.nuget.org/packages/LabAcacia.NPS.NIP/)
 [![GitHub Release](https://img.shields.io/github/v/release/labacacia/NIP-CA-Server?include_prereleases)](https://github.com/labacacia/NIP-CA-Server/releases)
@@ -23,9 +21,6 @@ as unmaintained reference reads.
 > Mirror: [gitee.com/labacacia/nip-ca-server](https://gitee.com/labacacia/nip-ca-server) ·
 > Spec: [NPS-3 NIP §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md) ·
 > Suite: [NPS-Release](https://github.com/labacacia/NPS)
-
-See [Naming and compatibility](docs/naming-and-compatibility.md) for the
-accepted package, image, service and configuration identifier decision.
 
 ---
 

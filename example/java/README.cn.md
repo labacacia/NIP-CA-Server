@@ -50,7 +50,21 @@ NIP_CA_NID=urn:nps:org:ca.local \
 ## 技术栈
 
 - **运行时**：Java 21（eclipse-temurin）
-- **框架**：Spring Boot 3.4
+- **框架**：Spring Boot 4.0.9
 - **加密**：Java 标准库（Ed25519 + AES/GCM + PBKDF2WithHmacSHA256）+ BouncyCastle（仅用 X.509 builder API，由 `nps-java` 传递引入）
 - **存储**：SQLite（sqlite-jdbc）
 - **NPS SDK**：通过 Gradle composite build 依赖 `impl/java/`（`includeBuild('../../../../impl/java')`）
+
+## 未发布的框架/安全迁移
+
+示例使用 Java 21、校验和固定的 Gradle 8.14.3 和 Spring Boot 4.0.9 / Spring MVC 7。
+Web 栈采用 Jackson 3；签名及存储 JSON 显式保留修复后的 Jackson 2.18.11，与 SDK 表示
+一致。不能删除这个直接依赖，也不能把 Spring 7 强行混入 Boot 3 的依赖图。
+
+在 NPS-Dev 根目录执行 `impl/java/gradlew -p tools/nip-ca-server/example/java test bootJar`。
+实际 loopback 测试检查已配置 operator 的准入、嵌套/Unicode/整数签名、SQLite 重复状态和
+v2 X.509 发证。JDBC 初始化在后续 PRAGMA 前关闭 WAL 结果集；schema 通过资源流读取，
+使可执行 JAR 能启动。这不验证生产 TLS/PKI。旧的空 operator key 行为仍然
+宽松；须配置 operator key 才适用本轮测试的准入边界。
+
+已配置 key 的测试还重启同一加密 CA 密钥/SQLite 状态，核对公钥/serial 连续性及 POSIX0600 权限。旧版本生成的000权限文件须由所有者恢复0600后重启；升级不重写既有私钥文件。
