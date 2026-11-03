@@ -16,6 +16,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.SecretKeyFactory;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.*;
@@ -78,8 +79,18 @@ public class CaService {
         Path p = Paths.get(filePath);
         if (p.getParent() != null) Files.createDirectories(p.getParent());
         Files.writeString(p, mapper.writeValueAsString(env));
-        p.toFile().setReadable(true,  true);  p.toFile().setReadable(false, false);
-        p.toFile().setWritable(true,  true);  p.toFile().setWritable(false, false);
+        try {
+            Files.setPosixFilePermissions(p, java.util.EnumSet.of(
+                java.nio.file.attribute.PosixFilePermission.OWNER_READ,
+                java.nio.file.attribute.PosixFilePermission.OWNER_WRITE));
+        } catch (UnsupportedOperationException unavailable) {
+            // Remove broad permissions FIRST; granting owner access before removal
+            // cleared the owner's bits too and left a mode-000 envelope on Linux.
+            File file = p.toFile();
+            if (!file.setReadable(false, false) || !file.setWritable(false, false)
+                    || !file.setReadable(true, true) || !file.setWritable(true, true))
+                throw new IOException("Unable to restrict CA key envelope permissions.");
+        }
     }
 
     /** Loads keypair from encrypted file. */

@@ -50,7 +50,24 @@ NIP_CA_NID=urn:nps:org:ca.local \
 ## Stack
 
 - **Runtime**: Java 21 (eclipse-temurin)
-- **Framework**: Spring Boot 3.4
+- **Framework**: Spring Boot 4.0.9
 - **Crypto**: Java stdlib (Ed25519 + AES/GCM + PBKDF2WithHmacSHA256) + BouncyCastle (X.509 builder API only, transitive via `nps-java`)
 - **Storage**: SQLite via sqlite-jdbc
 - **NPS SDK**: depends on `impl/java/` via Gradle composite build (`includeBuild('../../../../impl/java')`)
+
+## Unreleased framework/security migration
+
+The example uses Java 21, checksum-pinned Gradle 8.14.3 and Spring Boot 4.0.9 /
+Spring MVC 7. Boot's web stack uses Jackson 3; signing and stored JSON explicitly
+retain patched Jackson 2.18.11, matching the SDK representation. Do not remove that
+direct dependency or force Spring 7 into a Boot 3 dependency graph.
+
+From canonical NPS-Dev, run `impl/java/gradlew -p tools/nip-ca-server/example/java test bootJar`.
+The actual loopback test checks configured operator admission, nested/Unicode/integer
+signatures, duplicate SQLite state and v2 X.509 issuance. JDBC initialization closes
+its WAL result set before further PRAGMAs, and packaged schema loading uses a stream
+so the executable jar can start. This does not qualify production TLS/PKI.
+The legacy blank-operator-key behavior remains permissive; configure an operator key
+for the tested admission boundary.
+
+The configured-key test also restarts the same encrypted CA key/SQLite state and checks public-key/serial continuity and POSIX mode0600. A previously generated mode000 envelope needs its owner to restore mode0600 before restart; the upgrade does not rewrite existing private key files.
