@@ -8,6 +8,12 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.20] — Release candidate, unpublished
+
+- Bounded experimental result resources/authorization, repeated-schema batches, local task handoff and volatile node transfer. Language support differs; full six-SDK runtime parity is not qualified.
+- Preserve measured comparisons with equivalent HTTPgzip and ordinary tools; no universal token, fee or speed benefit is claimed.
+- Align candidate versions and local CI/package verification. Full production, beta and actual publication remain separate gates.
+
 ## [1.0.0-alpha.19] — 2026-09-05
 
 ### Changed
@@ -173,7 +179,7 @@ This release rolls up suite-wide protocol changes that landed in NPS
 - **CR-0001** — Anchor + Bridge Node split (no client-facing change in
   the CA Server itself, but downstream NPS-3 NIP wording was refreshed).
 
-See [`NPS-Release/CHANGELOG.md`](https://github.com/labacacia/NPS-Release/blob/main/CHANGELOG.md)
+See [`NPS-Release/CHANGELOG.md`](https://github.com/labacacia/NPS/blob/main/CHANGELOG.md)
 for the full suite-level rollup.
 
 ---
@@ -183,7 +189,7 @@ for the full suite-level rollup.
 ### Added
 
 - First release of `NIP CA Server — .NET` (ASP.NET Core 10 + SQLite) under the NPS suite `1.0.0-alpha.2` umbrella tag.
-- REST API surface per [NPS-3 §8](https://github.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.md): `/v1/agents/*`, `/v1/nodes/*`, `/v1/ca/cert`, `/v1/crl`, `/.well-known/nps-ca`, `/health`.
+- REST API surface per [NPS-3 §8](https://github.com/labacacia/NPS/blob/main/spec/NPS-3-NIP.md): `/v1/agents/*`, `/v1/nodes/*`, `/v1/ca/cert`, `/v1/crl`, `/.well-known/nps-ca`, `/health`.
 - Ed25519 signing, AES-256-GCM + PBKDF2 key file encryption, SQLite-backed storage.
 - Docker Compose entrypoint.
 - README gained a Chinese counterpart (`README.cn.md`) with a language switcher at the top of both files.
@@ -193,5 +199,5 @@ for the full suite-level rollup.
 [1.0.0-alpha.5]: https://github.com/labacacia/nip-ca-server/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://github.com/labacacia/nip-ca-server/releases/tag/v1.0.0-alpha.4
 [1.0.0-alpha.3]: https://github.com/labacacia/nip-ca-server/releases/tag/v1.0.0-alpha.3
-[1.0.0-alpha.2]: https://github.com/labacacia/NPS-Release/releases/tag/v1.0.0-alpha.2
-[1.0.0-alpha.1]: https://github.com/labacacia/NPS-Release/releases/tag/v1.0.0-alpha.1
+[1.0.0-alpha.2]: https://github.com/labacacia/NPS/releases/tag/v1.0.0-alpha.2
+[1.0.0-alpha.1]: https://github.com/labacacia/NPS/releases/tag/v1.0.0-alpha.1

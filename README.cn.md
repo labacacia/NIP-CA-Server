@@ -21,9 +21,6 @@ Ed25519 NID 证书。
 > 规范：[NPS-3 NIP §8](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md) ·
 > 套件：[NPS-Release](https://gitee.com/labacacia/NPS-Release)
 
-package、镜像、service 与配置标识符的已接受决策见
-[命名与兼容性](docs/naming-and-compatibility.md)。
-
 ---
 
 ## 特性
@@ -116,7 +113,7 @@ curl http://localhost:17435/health
 protected header 为 `alg=EdDSA, kid=<group_nid>, nps-purpose=session-issue`），让持有
 group 私钥的 orchestrator 不依赖 Operator 凭据即可自签发 session。详见
 [NPS-3 §5.1.3 / §8](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md)
-与 [NPS-CR-0003](https://github.com/labacacia/NPS-Release/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md)。
+与 [NPS-CR-0003](https://github.com/labacacia/NPS/blob/main/spec/cr/NPS-CR-0003-orchestrator-group-session-nids.md)。
 
 字段级 schema 见 [NPS-3 §8](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md)。
 
@@ -155,7 +152,7 @@ docker compose up -d --build
 | 角色 | 位置 |
 |------|------|
 | 规范 —— NIP 协议 | [`NPS-Release/spec/NPS-3-NIP.cn.md`](https://gitee.com/labacacia/NPS-Release/blob/main/spec/NPS-3-NIP.cn.md) |
-| .NET NIP 客户端 SDK | [`labacacia/NPS-SDK-DotNet`](https://gitee.com/labacacia/NPS-SDK-DotNet) |
+| .NET NIP 客户端 SDK | [`labacacia/NPS-SDK-DotNet`](https://gitee.com/labacacia/NPS-sdk-dotnet) |
 | 其他语言 NIP SDK | [`labacacia/NPS-sdk-{py,ts,java,rust,go}`](https://gitee.com/labacacia/dashboard/projects?q=NPS-sdk) |
 | 套件总览 | [`labacacia/NPS-Release`](https://gitee.com/labacacia/NPS-Release) |
 | 开发用 monorepo | 私有仓库 —— 发布以单向同步落到此处 |

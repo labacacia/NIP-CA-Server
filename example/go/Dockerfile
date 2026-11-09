@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # ── Build ─────────────────────────────────────────────────────────────────────
-FROM golang:1.23-bookworm AS builder
+FROM golang:1.26.10-bookworm AS builder
 
 WORKDIR /build
 
